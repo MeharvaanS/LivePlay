@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Live Play</title>
+</head>
+<body>
+   <h2 id="title">Live Play</h2> <br>
+   <!-- Dropdown menu -->
+   <select id="leagueDropdown">
+    <option value="Indian Premier League">Indian Premier League</option>
+    <option value="County Championship Division">County Championship Division</option>
+    <option value="ICC Cricket World Cup"> ICC Cricket World Cup</option>
+    <option value="ICC Womens T20 World Cup"> ICC Womens T20 World Cup</option>
+   </select>
+   <div id="scores">
+       <h3>Live Matches</h3>
+       <table id="matches_live">
+           <tr id="live_rows"></tr>
+       </table>
+       <br>
+       <p id="board">Click <a href="https://cricketdata.org/cricket-data-formats/points_table/indian-premier-league-2024-76ae85e2-88e5-4e99-83e4-5f352108aebc" target="_blank">here</a> to see the IPL points table.</p>
+       <br>
+       <h3>Matches today</h3>
+       <table id="matches_today">
+           <tr id="today_rows"></tr>
+       </table>
+       <br>
+       <h3>Recent Matches</h3>
+       <table id="matches_recent">
+           <tr id="recent_rows"></tr>
+       </table>
+       <br>
+        <!-- Button for showing more recent matches -->
+        <div id="recentButtonContainer"></div>
+        <br><br>
+       <h3>Upcoming Matches</h3>
+       <table id="matches_upcoming">
+           <tr id="upcoming_rows"></tr>
+       </table>
+       <br>
+       <!-- Button for showing more upcoming matches -->
+       <div id="upcomingButtonContainer"></div>
+       <p id="showMoreButtonContainer"></p> <br>
+   </div>
+   <script src="script.js"></script>
+</body>
+</html>

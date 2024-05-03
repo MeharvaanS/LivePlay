@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    width: 370px;
+    margin-bottom: 20px;
+}
+
+#scores{
+    max-height: 210px; /* Limiting the height */
+    overflow-y: auto; /* Adding vertical scrollbar when content exceeds the max height */
+}
+
+th {
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    border: 0.7px solid lightgrey; /* Add border between cells */
+}
+
+td{
+    padding: 7px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 11px;
+    border: 0.7px solid lightgrey; /* Add border between cells */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px auto;
+    border: 0.7px solid lightgrey; /* Add light grey border around the table */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+
+td img {
+    width: 32px;
+    height: 32px;
+    padding-bottom: 3px;
+    transition: transform 0.3s ease; /* Smooth transition on hover */
+}
+
+td img:hover {
+    transform: scale(1.1); /* Scale up the image on hover */
+}
+
+h4{
+    font-weight: 200;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+b {
+    font-size: 16px;
+}
+
+p {
+    font-size: 11px;
+    color:grey;
+    text-align: center;
+}
+
+#title {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add box shadow for 3D effect */
+    text-align: center;
+    color: white;
+    font-family:'Courier New', Courier, monospace;
+    background-color: navy;
+    padding: 10px;
+}
+
+a{
+    align-items: center;
+    text-decoration: none;
+    font-size: 11px;
+    color: #2D5987;
+}
+
+a:hover{
+    color: #0458B3;
+    font-weight: 500;
+}
+
+h3{
+    color: grey;
+    font-weight: 100;
+}
+
+/* Styling for the "Show More" button */
+button {
+    margin-left: 80px;
+    text-align: center;
+    background-color: navy; /* Navy blue background color */
+    color: white; /* White text color */
+    font-size: 11px;
+    border: none; /* No border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+    width:55%;
+    height: 28px;
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #001F3F; /* Darker navy blue on hover */
+    transform: translateY(-2px); /* Move the button up slightly on hover */
+}
+
+/* Active effect */
+button:active {
+    transform: translateY(0); /* Reset transform on click */
+    box-shadow: none; /* Remove shadow on click */
+}
+
+#leagueDropdown {
+    text-align: center; /* Center align the dropdown */
+    background-color: #001F3F; /* Set the background color to dark grey */
+    color: whitesmoke;
+    width: 70%; /* Set the width of the dropdown */
+    height: 28px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add box shadow for 3D effect */
+    margin-bottom: 20px;
+    margin-left: 65px;
+}
+
+

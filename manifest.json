@@ -1,0 +1,15 @@
+{
+    "name": "Live Play",
+    "version": "1.0.0",
+    "description": "Elevate your cricket experience with live match scores and updates on global fixtures.",
+    "manifest_version": 3,
+    "author": "Meharvaan Singh",
+    "icons":{
+        "128":"logo128.png"
+    },
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Live Play"
+    }
+
+}

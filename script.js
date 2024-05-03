@@ -2,11 +2,13 @@ let recentRowsDisplayed = 2; // Variable to keep track of the number of recent r
 let upcomingRowsDisplayed = 2; // Variable to keep track of the number of upcoming rows displayed
 let showRecentButtonAdded = false; // Variable to track if "Show More" button for recent matches has been added
 let showUpcomingButtonAdded = false; // Variable to track if "Show More" button for upcoming matches has been added
+let currentLeague = "Indian Premier League"; // Variable to store the current league
+let showRecentButton; // Variable to store reference to "Show More" button for recent matches
+let showUpcomingButton; // Variable to store reference to "Show More" button for upcoming matches
 
 async function getMatchData(league) {
     // Fetching data 
     return await fetch("https://api.cricapi.com/v1/cricScore?apikey=616efe51-c75d-4763-9ac5-44f81d322268")
-    // return await fetch("TestData.json")
         .then(data => data.json()
             .then(data => {
                 if (data.status != "success") return;
@@ -19,15 +21,12 @@ async function getMatchData(league) {
                     return;
                 }
 
-                // Get today's date
                 var today = new Date(new Date().toLocaleDateString('en-US', {
                     timeZone: 'America/New_York'
                 })).toISOString().split('T')[0];
 
-                // Filtering live matches
                 const liveData = matchList.filter(match => match.series.includes(league) && match.dateTimeGMT.split('T')[0] == today && match.ms == "live");
                 const newLiveHTML = liveData.map(match => {
-                    // Extracting necessary information for each match
                     const team1Logo = match.t1img;
                     const team2Logo = match.t2img;
                     let team1Score = match.t1s;
@@ -35,7 +34,6 @@ async function getMatchData(league) {
                     const team1Name = match.t1.substring(match.t1.indexOf("[") + 1, match.t1.indexOf("]"));
                     const team2Name = match.t2.substring(match.t2.indexOf("[") + 1, match.t2.indexOf("]"));
 
-                    // Handling cases where scores are not available
                     if (team1Score == "") {
                         team1Score = "0/0 (0)";
                     }
@@ -43,7 +41,6 @@ async function getMatchData(league) {
                         team2Score = "0/0 (0)";
                     }
 
-                    // Generating HTML for each live match
                     return `
                         <tr>
                             <td>
@@ -58,9 +55,7 @@ async function getMatchData(league) {
                         </tr>`;
                 }).join('');
 
-                // Clear live matches table before appending new HTML
                 document.getElementById("matches_live").innerHTML = "";
-                // Appending live matches HTML to the live matches table
                 document.getElementById("matches_live").innerHTML = `
                 <tr>
                     <th>Team 1</th>
@@ -69,10 +64,8 @@ async function getMatchData(league) {
                 </tr>
                 ${newLiveHTML || "<tr><td colspan='3'>No matches live!</td></tr>"}`;
 
-                // Filtering matches scheduled for today
                 const todayData = matchList.filter(match => match.series.includes(league) && match.dateTimeGMT.split('T')[0] == today);
                 const newTodayHTML = todayData.map(match => {
-                    // Extracting necessary information for each match
                     const team1Logo = match.t1img;
                     const team2Logo = match.t2img;
                     let team1Score = match.t1s;
@@ -80,7 +73,6 @@ async function getMatchData(league) {
                     const team1Name = match.t1.substring(match.t1.indexOf("[") + 1, match.t1.indexOf("]"));
                     const team2Name = match.t2.substring(match.t2.indexOf("[") + 1, match.t2.indexOf("]"));
 
-                    // Handling cases where scores are not available
                     if (team1Score == "") {
                         team1Score = "0/0 (0)";
                     }
@@ -88,7 +80,6 @@ async function getMatchData(league) {
                         team2Score = "0/0 (0)";
                     }
 
-                    // Generating HTML for each match scheduled for today
                     return `
                         <tr>
                             <td>
@@ -103,9 +94,7 @@ async function getMatchData(league) {
                         </tr>`;
                 }).join('');
 
-                // Clear today's matches table before appending new HTML
                 document.getElementById("matches_today").innerHTML = "";
-                // Appending today's matches HTML to the today's matches table
                 document.getElementById("matches_today").innerHTML = `
                 <tr>
                     <th>Team 1</th>
@@ -114,10 +103,8 @@ async function getMatchData(league) {
                 </tr>
                 ${newTodayHTML || "<tr><td colspan='3'>No matches today!</td></tr>"}`;
 
-                // Showing recent matches with option to show more
                 const recentData = matchList.filter(match => match.series.includes(league) && match.dateTimeGMT.split('T')[0] < today);
                 const newRecentHTML = recentData.map((match, index) => {
-                    // Mapping data to HTML for recent matches
                     if (index < recentRowsDisplayed) {
                         const team1Logo = match.t1img;
                         const team2Logo = match.t2img;
@@ -133,7 +120,6 @@ async function getMatchData(league) {
                             team2Score = "0/0 (0)";
                         }
 
-                        // Generating HTML for each recent match
                         return `
                             <tr>
                                 <td>
@@ -149,9 +135,7 @@ async function getMatchData(league) {
                     }
                 }).join('');
 
-                // Clear recent matches table before appending new HTML
                 document.getElementById("matches_recent").innerHTML = "";
-                // Appending recent matches HTML to the recent matches table
                 document.getElementById("matches_recent").innerHTML = `
                 <tr>
                     <th>Team 1</th>
@@ -160,31 +144,27 @@ async function getMatchData(league) {
                 </tr>
                 ${newRecentHTML || "<tr><td colspan='3'>No recent matches!</td></tr>"}`;
 
-                // If there are more recent matches than displayed and the "Show More" button has not been added yet, add the button
                 if (recentData.length > recentRowsDisplayed && !showRecentButtonAdded) {
-                    // Append the "Show More" button before the link and center it
-                    const showRecentButton = document.createElement('button');
+                    showRecentButton = document.createElement('button');
                     showRecentButton.textContent = 'Show More';
                     showRecentButton.addEventListener('click', () => {
                         if (showRecentButton.textContent === 'Show More') {
                             showRecentButton.textContent = 'Show Less';
-                            recentRowsDisplayed = recentData.length; // Show all remaining rows
+                            recentRowsDisplayed = recentData.length;
                         } else {
                             showRecentButton.textContent = 'Show More';
-                            recentRowsDisplayed = 2; // Reset to 2 rows
+                            recentRowsDisplayed = 2;
                         }
-                        document.getElementById("matches_recent").innerHTML = ''; // Clear recent matches table
-                        getMatchData(league); // Re-render recent matches with the correct league parameter
+                        document.getElementById("matches_recent").innerHTML = '';
+                        getMatchData(currentLeague);
                     });
                     document.getElementById("recentButtonContainer").appendChild(showRecentButton);
 
-                    showRecentButtonAdded = true; // Set the flag to indicate that the button has been added
+                    showRecentButtonAdded = true;
                 }
 
-                // Filtering upcoming matches scheduled after today
                 const upcomingData = matchList.filter(match => match.series.includes(league) && match.dateTimeGMT.split('T')[0] > today);
                 const newUpcomingHTML = upcomingData.map((match, index) => {
-                    // Mapping data to HTML for upcoming matches
                     if (index < upcomingRowsDisplayed) {
                         const team1Logo = match.t1img;
                         const team2Logo = match.t2img;
@@ -200,7 +180,6 @@ async function getMatchData(league) {
                             team2Score = "0/0 (0)";
                         }
 
-                        // Generating HTML for each upcoming match
                         return `
                             <tr>
                                 <td>
@@ -216,9 +195,7 @@ async function getMatchData(league) {
                     }
                 }).join('');
 
-                // Clear upcoming matches table before appending new HTML
                 document.getElementById("matches_upcoming").innerHTML = "";
-                // Appending upcoming matches HTML to the upcoming matches table
                 document.getElementById("matches_upcoming").innerHTML = `
                 <tr>
                     <th>Team 1</th>
@@ -227,45 +204,46 @@ async function getMatchData(league) {
                 </tr>
                 ${newUpcomingHTML || "<tr><td colspan='3'>No upcoming matches!</td></tr>"}`;
 
-                // If there are more upcoming matches than displayed and the "Show More" button has not been added yet, add the button
                 if (upcomingData.length > upcomingRowsDisplayed && !showUpcomingButtonAdded) {
-                    // Append the "Show More" button before the link and center it
-                    const showUpcomingButton = document.createElement('button');
+                    showUpcomingButton = document.createElement('button');
                     showUpcomingButton.textContent = 'Show More';
                     showUpcomingButton.addEventListener('click', () => {
                         if (showUpcomingButton.textContent === 'Show More') {
                             showUpcomingButton.textContent = 'Show Less';
-                            upcomingRowsDisplayed = upcomingData.length; // Show all remaining rows
+                            upcomingRowsDisplayed = upcomingData.length;
                         } else {
                             showUpcomingButton.textContent = 'Show More';
-                            upcomingRowsDisplayed = 2; // Reset to 2 rows
+                            upcomingRowsDisplayed = 2;
                         }
-                        document.getElementById("matches_upcoming").innerHTML = ''; // Clear upcoming matches table
-                        getMatchData(league); // Re-render upcoming matches with the correct league parameter
+                        document.getElementById("matches_upcoming").innerHTML = '';
+                        getMatchData(currentLeague);
                     });
                     document.getElementById("upcomingButtonContainer").appendChild(showUpcomingButton);
 
-                    showUpcomingButtonAdded = true; // Set the flag to indicate that the button has been added
+                    showUpcomingButtonAdded = true;
                 }
             })
         );
 }
 
-const dropDown = document.getElementById('leagueDropdown')
+const dropDown = document.getElementById('leagueDropdown');
 
 dropDown.addEventListener('change', function() {
-    getMatchData(dropDown.value);
-    if(dropDown.value !== "Indian Premier League") {
+    currentLeague = dropDown.value;
+    getMatchData(currentLeague);
+
+    // Reset "Show More" buttons and their states
+    resetShowMoreButtons();
+    
+    if(currentLeague !== "Indian Premier League") {
         const boardElement = document.getElementById("board");
         if(boardElement) {
             boardElement.style.display = "none"; // Hide the element
         }
     } else {
         if(!document.getElementById("board")) {
-            // If the element doesn't exist, create it
             const board = document.createElement("div");
             board.id = "board";
-            // Add any additional content or attributes to the "board" element if needed
             document.body.appendChild(board); // Append it to the body or any other parent element
         } else {
             const boardElement = document.getElementById("board");
@@ -273,5 +251,17 @@ dropDown.addEventListener('change', function() {
         }
     }
 });
+
+// Function to reset "Show More" buttons and their states
+function resetShowMoreButtons() {
+    if (showRecentButton) {
+        showRecentButton.textContent = 'Show More';
+    }
+    if (showUpcomingButton) {
+        showUpcomingButton.textContent = 'Show More';
+    }
+    recentRowsDisplayed = 2;
+    upcomingRowsDisplayed = 2;
+}
 
 getMatchData("Indian Premier League");

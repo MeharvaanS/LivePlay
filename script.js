@@ -5,10 +5,11 @@ let showUpcomingButtonAdded = false; // Variable to track if "Show More" button 
 let currentLeague = "Indian Premier League"; // Variable to store the current league
 let showRecentButton; // Variable to store reference to "Show More" button for recent matches
 let showUpcomingButton; // Variable to store reference to "Show More" button for upcoming matches
+// return await fetch("https://api.cricapi.com/v1/cricScore?apikey=616efe51-c75d-4763-9ac5-44f81d322268")
 
 async function getMatchData(league) {
     // Fetching data 
-    return await fetch("https://api.cricapi.com/v1/cricScore?apikey=616efe51-c75d-4763-9ac5-44f81d322268")
+    return await fetch("https://api.cricapi.com/v1/cricScore?apikey=a829c5ef-4172-4419-96ca-c57036cb4bbb")
         .then(data => data.json()
             .then(data => {
                 if (data.status != "success") return;

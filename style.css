@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: white;
-    width: 370px;
+    width: 400px;
     margin-bottom: 20px;
 }
 
@@ -97,6 +97,12 @@ h3{
     font-weight: 100;
 }
 
+#newsTitle{
+    color: grey;
+    font-weight: 300;
+    margin-left: 115px;
+}
+
 /* Styling for the "Show More" button */
 button {
     margin-left: 80px;
@@ -132,7 +138,120 @@ button:active {
     height: 28px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add box shadow for 3D effect */
     margin-bottom: 20px;
-    margin-left: 65px;
+    margin-left: 22px;
 }
+
+/* Toggle switch style */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 16px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 20px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 12.5px;
+    width: 14px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: black;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px black;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 20px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+#darkModeLabel{
+    margin-left: 140px;
+}
+
+#newsButton {
+    width: 30px;
+    height: 30px;
+    margin-left: 50px;
+    background-image: url('news_icon.png'); 
+    background-color: transparent;
+    background-size: cover; /* Ensure the icon covers the button */
+    background-repeat: no-repeat; /* Prevent the icon from repeating */
+    background-position: center; /* Center the icon within the button */
+    border: none; /* Remove border */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0); /* Shadow effect */
+}
+
+#indexButton {
+    width: 50px;
+    height: 50px;
+    margin-left: 46px;
+    background-image: url('score_icon.png'); 
+    background-color: transparent;
+    background-size: cover; /* Ensure the icon covers the button */
+    background-repeat: no-repeat; /* Prevent the icon from repeating */
+    background-position: center; /* Center the icon within the button */
+    border: none; /* Remove border */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0); /* Shadow effect */
+}
+
+
+#options {
+    display: flex; /* Use flexbox to align items horizontally */
+}
+
+.card img {
+    width: 100%; /* Set the width of the image to 100% */
+    max-height: 190px; /* Limit maximum height of the image */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    margin-bottom: 8px; /* Add some spacing between image and other content */
+}
+
+#news {
+    max-height: 210px; /* Limiting the height */
+    overflow-y: auto; /* Adding vertical scrollbar when content exceeds the max height */
+}
+
 
 

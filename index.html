@@ -9,12 +9,23 @@
 <body>
    <h2 id="title">Live Play</h2> <br>
    <!-- Dropdown menu -->
-   <select id="leagueDropdown">
-    <option value="Indian Premier League">Indian Premier League</option>
-    <option value="County Championship Division">County Championship Division</option>
-    <option value="ICC Cricket World Cup"> ICC Cricket World Cup</option>
-    <option value="ICC Womens T20 World Cup"> ICC Womens T20 World Cup</option>
-   </select>
+   <div id="options">
+        <select id="leagueDropdown">
+            <option value="Indian Premier League">Indian Premier League</option>
+            <option value="County Championship Division">County Championship Division</option>
+            <option value="ICC Cricket World Cup"> ICC Cricket World Cup</option>
+            <option value="ICC Womens T20 World Cup"> ICC Womens T20 World Cup</option>
+        </select>
+        <a href="news.html">
+            <button id="newsButton"></button>
+          </a>
+    </div>
+   <h3 id="darkModeLabel">Dark Mode&nbsp;
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider round"></span>
+    </label>
+</h3>
    <div id="scores">
        <h3>Live Matches</h3>
        <table id="matches_live">
@@ -46,5 +57,6 @@
        <p id="showMoreButtonContainer"></p> <br>
    </div>
    <script src="script.js"></script>
+   <script src="darkMode.js"></script>
 </body>
 </html>

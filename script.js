@@ -10,6 +10,7 @@ let showUpcomingButton; // Variable to store reference to "Show More" button for
 async function getMatchData(league) {
     // Fetching data 
     return await fetch("https://api.cricapi.com/v1/cricScore?apikey=a829c5ef-4172-4419-96ca-c57036cb4bbb")
+    // return await fetch("TestData.json")
         .then(data => data.json()
             .then(data => {
                 if (data.status != "success") return;
@@ -87,7 +88,7 @@ async function getMatchData(league) {
                                 <img src="${team1Logo}" alt="${match.t1}"><br>
                                 ${team1Name}<br>${team1Score}
                             </td>
-                            <td>${match.status} &nbsp;<b style="color: navy; font-size: 13px; text-transform: uppercase;">${match.ms}</b></td>
+                            <td>${match.status}<b style="color: navy; font-size: 13px; text-transform: uppercase;"><br><br>${match.ms}</b></td>
                             <td>
                                 <img src="${team2Logo}" alt="${match.t2}"><br>
                                 ${team2Name}<br>${team2Score}
@@ -200,7 +201,7 @@ async function getMatchData(league) {
                 document.getElementById("matches_upcoming").innerHTML = `
                 <tr>
                     <th>Team 1</th>
-                    <th>Match Result</th>
+                    <th>Match Status</th>
                     <th>Team 2</th>
                 </tr>
                 ${newUpcomingHTML || "<tr><td colspan='3'>No upcoming matches!</td></tr>"}`;
@@ -266,29 +267,3 @@ function resetShowMoreButtons() {
 }
 
 getMatchData("Indian Premier League");
-dark();
-function dark() { 
-    // the css we are going to inject
-    var css = 'html {-webkit-filter: invert(100%);' +
-        '-moz-filter: invert(100%);' + 
-        '-o-filter: invert(100%);' + 
-        '-ms-filter: invert(100%); }',
-    
-    head = document.getElementsByTagName('head')[0],
-    style = document.createElement('style');
-    
-    // // a hack, so you can "invert back" clicking the bookmarklet again
-    // if (!window.counter) { window.counter = 1;} else  { window.counter ++;
-    // if (window.counter % 2 == 0) { var css ='html {-webkit-filter: invert(0%); -moz-filter:    invert(0%); -o-filter: invert(0%); -ms-filter: invert(0%); }'}
-    //  };
-    
-    style.type = 'text/css';
-    if (style.styleSheet){
-    style.styleSheet.cssText = css;
-    } else {
-    style.appendChild(document.createTextNode(css));
-    }
-    
-    //injecting the css to the head
-    head.appendChild(style);
-    };
